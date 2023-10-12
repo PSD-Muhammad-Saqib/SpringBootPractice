@@ -1,5 +1,6 @@
 package com.practice.demo.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -17,14 +18,18 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@Column(unique = true, nullable = false)
 	private String productName;
+	
+	@Column(nullable = false)
 	private Double price;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "supplier_id", nullable = false)
+//	@JsonIgnore
 	private Supplier supplier;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "category_id", nullable = false)
 //	@OnDelete(action = OnDeleteAction.CASCADE)
 //	@JsonIgnore
@@ -86,6 +91,4 @@ public class Product {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
-	
 }
