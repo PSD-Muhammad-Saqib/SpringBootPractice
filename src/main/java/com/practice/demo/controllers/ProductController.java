@@ -27,14 +27,13 @@ import com.practice.demo.services.ProductService;
 
 @RestController
 @RequestMapping("products")
-public class ProductController implements ControllerActionsInterface<Product>{
-
+public class ProductController implements ControllerActionsInterface<Product> {
 
 	@Autowired
 	private ProductService productService;
-	
-    @Autowired
-    private ModelMapper modelMapper;
+
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@Override
 	@PostMapping("saveAll")
@@ -63,7 +62,7 @@ public class ProductController implements ControllerActionsInterface<Product>{
 	}
 
 	@Override
-	@GetMapping(value = {"", "/"})
+	@GetMapping(value = { "", "/" })
 	public ResponseEntity<?> getAll(@RequestParam(required = false, name = "query") String query) {
 		List<Product> products = new ArrayList<>();
 		if (Objects.isNull(query)) {
@@ -71,10 +70,9 @@ public class ProductController implements ControllerActionsInterface<Product>{
 		} else {
 			products = productService.getAllByQuery(query);
 		}
-		
-		List<ProductDTO> productDTOs = products.stream()
-	            .map(product -> modelMapper.map(product, ProductDTO.class))
-	            .collect(Collectors.toList());
+
+		List<ProductDTO> productDTOs = products.stream().map(product -> modelMapper.map(product, ProductDTO.class))
+				.collect(Collectors.toList());
 		return ResponseEntity.ok(productDTOs);
 	}
 
@@ -100,7 +98,7 @@ public class ProductController implements ControllerActionsInterface<Product>{
 		if (Objects.isNull(product)) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(false);
 		}
-		
+
 		return ResponseEntity.ok(productService.delete(id));
 	}
 
