@@ -56,11 +56,11 @@ public class ReviewService {
 	}
 
 	public List<Review> getAllProductReviews(Integer productId) {
-		return reviewInterface.findAllByProduct_Id(productId);
+		return reviewInterface.findAllByProductId(productId);
 	}
 
 	public List<Review> getAllProductReviewsByQuery(String query, Integer productId) {
-		return reviewInterface.findByReviewCommentAndProduct_Id(query, productId);
+		return reviewInterface.findByReviewCommentContainingAndProductId(query, productId);
 	}
 
 	public Review update(Integer productId, Integer id, Review review) {
@@ -81,7 +81,7 @@ public class ReviewService {
 	}
 
 	public Boolean deleteByProductId(Integer productId) {
-		reviewInterface.deleteAllByProduct_Id(productId);
-		return reviewInterface.findAllByProduct_Id(productId).size() == 0;
+		reviewInterface.deleteAllByProductId(productId);
+		return reviewInterface.findAllByProductId(productId).size() == 0;
 	}
 }

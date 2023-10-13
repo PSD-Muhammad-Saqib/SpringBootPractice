@@ -15,9 +15,9 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface ReviewInterface extends JpaRepository<Review, Integer> {
 
-	public List<Review> findByReviewCommentAndProduct_Id(String reviewComment, Integer productId);
+	public List<Review> findByReviewCommentContainingAndProductId(String reviewComment, Integer productId);
 
-	public List<Review> findAllByProduct_Id(Integer productId);
+	public List<Review> findAllByProductId(Integer productId);
 
 	@Query("SELECT r FROM Review r WHERE r.id = :id AND r.product.id = :productId")
 	Review findByIdAndProductId(@Param("id") Integer id, @Param("productId") Integer productId);
@@ -27,7 +27,9 @@ public interface ReviewInterface extends JpaRepository<Review, Integer> {
 	@Query("DELETE FROM Review r WHERE r.id = :id AND r.product.id = :productId")
 	void deleteByIdAndProductId(@Param("id") Integer id, @Param("productId") Integer productId);
 
+	@Modifying
 	@Transactional
-	public void deleteAllByProduct_Id(Integer productId);
+	@Query("DELETE FROM Review r WHERE r.product.id = :productId")
+	public void deleteAllByProductId(@Param("productId") Integer productId);
 
 }

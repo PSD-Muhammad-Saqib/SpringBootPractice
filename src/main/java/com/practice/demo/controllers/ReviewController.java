@@ -74,11 +74,6 @@ public class ReviewController {
 					.body(ResponseHelpers.notFoundResponse(Product.class.getName(), productId));
 		}
 
-		System.out.println("================================");
-		System.out.println(product.toString());
-		System.out.println(query);
-		System.out.println("================================");
-
 		List<Review> reviews = new ArrayList<>();
 		if (Objects.isNull(query)) {
 			reviews = reviewService.getAllProductReviews(productId);
