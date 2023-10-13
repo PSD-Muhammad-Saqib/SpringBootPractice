@@ -1,4 +1,4 @@
-package com.practice.demo.controllers;
+package com.practice.demo.controllers.api;
 
 import java.util.List;
 import java.util.Objects;
@@ -18,38 +18,38 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.practice.demo.helpers.ResponseHelpers;
 import com.practice.demo.interfaces.ControllerActionsInterface;
-import com.practice.demo.models.Category;
-import com.practice.demo.services.CategoryService;
+import com.practice.demo.models.Supplier;
+import com.practice.demo.services.SupplierService;
 
 @RestController
-@RequestMapping("categories")
-public class CategoryController implements ControllerActionsInterface<Category> {
+@RequestMapping("suppliers")
+public class SupplierController implements ControllerActionsInterface<Supplier> {
 
 	@Autowired
-	private CategoryService categoryService;
+	private SupplierService supplierService;
 
 	@Override
 	@PostMapping("saveAll")
-	public ResponseEntity<List<Category>> saveAll(@RequestBody(required = true) List<Category> saveItems) {
-		return ResponseEntity.ok(categoryService.saveAll(saveItems));
+	public ResponseEntity<List<Supplier>> saveAll(@RequestBody(required = true) List<Supplier> saveItems) {
+		return ResponseEntity.ok(supplierService.saveAll(saveItems));
 	}
 
 	@Override
 	@PostMapping("save")
-	public ResponseEntity<Category> save(@RequestBody(required = true) Category saveItem) {
-		return ResponseEntity.ok(categoryService.save(saveItem));
+	public ResponseEntity<Supplier> save(@RequestBody(required = true) Supplier saveItem) {
+		return ResponseEntity.ok(supplierService.save(saveItem));
 	}
 
 	@Override
 	@GetMapping("/{id}")
 	public ResponseEntity<?> get(@PathVariable(name = "id", required = true) Integer id) {
-		Category category = categoryService.getById(id);
+		Supplier supplier = supplierService.getById(id);
 
-		if (Objects.isNull(category)) {
+		if (Objects.isNull(supplier)) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND)
-					.body(ResponseHelpers.notFoundResponse(Category.class.getName(), id));
+					.body(ResponseHelpers.notFoundResponse(Supplier.class.getName(), id));
 		} else {
-			return ResponseEntity.ok(category);
+			return ResponseEntity.ok(supplier);
 		}
 	}
 
@@ -57,35 +57,35 @@ public class CategoryController implements ControllerActionsInterface<Category> 
 	@GetMapping(value = {"", "/"})
 	public ResponseEntity<?> getAll(@RequestParam(required = false, name = "query") String query) {
 		if (Objects.isNull(query)) {
-			return ResponseEntity.ok(categoryService.getAll());
+			return ResponseEntity.ok(supplierService.getAll());
 		}
-		return ResponseEntity.ok(categoryService.getAllByQuery(query));
+		return ResponseEntity.ok(supplierService.getAllByQuery(query));
 	}
 
 	@Override
 	@PutMapping("/{id}")
 	public ResponseEntity<?> update(@PathVariable(name = "id", required = true) Integer id,
-			@RequestBody(required = true) Category updateItem) {
-		Category category = categoryService.update(id, updateItem);
+			@RequestBody(required = true) Supplier updateItem) {
+		Supplier supplier = supplierService.update(id, updateItem);
 
-		if (Objects.isNull(category)) {
+		if (Objects.isNull(supplier)) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND)
-					.body(ResponseHelpers.notFoundResponse(Category.class.getName().toString(), id));
+					.body(ResponseHelpers.notFoundResponse(Supplier.class.getName().toString(), id));
 		} else {
-			return ResponseEntity.ok(category);
+			return ResponseEntity.ok(supplier);
 		}
 	}
 
 	@Override
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> delete(@PathVariable(name = "id", required = true) Integer id) {
-		Category category = categoryService.getById(id);
+		Supplier supplier = supplierService.getById(id);
 
-		if (Objects.isNull(category)) {
+		if (Objects.isNull(supplier)) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(false);
 		}
 		
-		return ResponseEntity.ok(categoryService.delete(id));
+		return ResponseEntity.ok(supplierService.delete(id));
 	}
 
 }

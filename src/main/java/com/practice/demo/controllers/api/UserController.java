@@ -1,4 +1,4 @@
-package com.practice.demo.controllers;
+package com.practice.demo.controllers.api;
 
 import java.util.HashMap;
 import java.util.List;
