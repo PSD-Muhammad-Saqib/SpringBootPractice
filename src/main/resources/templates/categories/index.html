@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+
+<head>
+	<title>Spring Boot | Order Management </title>
+</head>
+
+<body>
+	<h1>Categories Home</h1>
+	<div th:switch="${categories}">
+		<h2 th:case="null">No categories yet!</h2>
+		<div th:case="*">
+			<h3>------------------------------------------------------</h3>
+			<h2>Categories</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Email</th>
+						<th>View</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="category : ${categories}">
+						<td th:text="${category.id}"></td>
+						<td th:text="${category.categoryName}"></td>
+						<td><a th:href="@{/categories/{id}(id=${category.id})}">View</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<p><a href="/categories/add">Add a new Category</a></p>
+	</div>
+</body>
+
+</html>

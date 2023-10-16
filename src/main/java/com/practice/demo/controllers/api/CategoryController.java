@@ -22,7 +22,7 @@ import com.practice.demo.models.Category;
 import com.practice.demo.services.CategoryService;
 
 @RestController
-@RequestMapping("categories")
+@RequestMapping("api/categories")
 public class CategoryController implements ControllerActionsInterface<Category> {
 
 	@Autowired
