@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+
+<head>
+	<title>Order Management | Suppliers</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+
+<body>
+	<div th:replace="fragments/navbar-fragment" th:with="activePage='categories'"></div>
+
+	<div class="container mt-4">
+		<div class="row align-items-center">
+			<div class="col-md-6">
+				<h2>Detail View</h2>
+			</div>
+			<div class="col-md-6 text-right p4">
+				<br>
+				<p><a href="/products" class="btn btn-dark btn-sm">Back</a></p>
+			</div>
+		</div>
+		<table class="table table-bordered">
+			<tbody>
+				<tr>
+					<th class="col-md-4">Code:</th>
+					<td class="col-md-8" th:text="${product.id}"></td>
+				</tr>
+				<tr>
+					<th class="col-md-4">Product Name:</th>
+					<td class="col-md-8" th:text="${product.productName}"></td>
+				</tr>
+				<tr>
+					<th class="col-md-4">Price:</th>
+					<td class="col-md-8" th:text="${product.price}"></td>
+				</tr>
+				<tr>
+					<th class="col-md-4">Supplier:</th>
+					<td class="col-md-8" th:text="${product.supplier.supplierName}"></td>
+				</tr>
+				<tr>
+					<th class="col-md-4">Category:</th>
+					<td class="col-md-8" th:text="${product.category.categoryName}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+		<h3 th:text="${product.reviews.size == 0} ? 'No Reviews' : 'Product Reviews'"></h3>
+		<table class="table table-striped" th:unless="${product.reviews.size == 0}" >
+			<thead class="thead-dark">
+			<tr>
+				<th colspan="4">Description</th>
+				<th >Rating</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="review : ${product.reviews}">
+				<td colspan="4" th:text="${review.reviewComment}"></td>
+				<td th:text="${review.rating}+'/5'"></td>
+			</tr>
+			</tbody>
+		</table>
+		<footer>
+			<div th:replace="fragments/footer-fragment"></div>
+		</footer>
+	</div>
+</body>
+
+</html>

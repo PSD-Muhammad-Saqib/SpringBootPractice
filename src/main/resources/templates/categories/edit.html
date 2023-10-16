@@ -12,8 +12,13 @@
 	<div th:replace="fragments/navbar-fragment" th:with="activePage='categories'"></div>
 	<div class="container">
 		<br>
-		<form class="col-6" method="post" th:object="${category}" action="#" th:action="@{/categories/save}"
-			enctype="application/x-www-form-urlencoded">
+		<form class="col-6" method="post" th:object="${category}" action="#"
+			th:action="@{/categories/update/{id}(id=${category.id})}" enctype="application/x-www-form-urlencoded">
+			<div class="form-group">
+				<label for="id">ID:</label>
+				<input type="number" th:field="*{id}" class="form-control" id="id" readonly>
+			</div>
+
 			<div class="form-group">
 				<label for="categoryName">Category Name:</label>
 				<input type="text" th:field="*{categoryName}" class="form-control" id="categoryName"

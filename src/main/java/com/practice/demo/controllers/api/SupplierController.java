@@ -22,7 +22,7 @@ import com.practice.demo.models.Supplier;
 import com.practice.demo.services.SupplierService;
 
 @RestController
-@RequestMapping("suppliers")
+@RequestMapping("api/suppliers")
 public class SupplierController implements ControllerActionsInterface<Supplier> {
 
 	@Autowired

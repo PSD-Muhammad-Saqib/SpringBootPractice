@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+
+<head>
+	<title>Order Management | Suppliers</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+
+<body>
+	<div th:replace="fragments/navbar-fragment" th:with="activePage='categories'"></div>
+
+	<div class="container mt-4">
+		<div class="row align-items-center">
+			<div class="col-md-6">
+				<h2>Detail View</h2>
+			</div>
+			<div class="col-md-6 text-right p4">
+				<br>
+				<p><a href="/suppliers" class="btn btn-dark btn-sm">Back</a></p>
+			</div>
+		</div>
+		<table class="table table-bordered">
+			<tbody>
+				<tr>
+					<th class="col-md-4">Code:</th>
+					<td class="col-md-8" th:text="${supplier.id}"></td>
+				</tr>
+				<tr>
+					<th class="col-md-4">Name:</th>
+					<td class="col-md-8" th:text="${supplier.supplierName}"></td>
+				</tr>
+				<tr>
+					<th class="col-md-4">Address:</th>
+					<td class="col-md-8" th:text="${supplier.supplierAddress}"></td>
+				</tr>
+				<tr>
+					<th class="col-md-4">City:</th>
+					<td class="col-md-8" th:text="${supplier.supplierCity}"></td>
+				</tr>
+				<tr>
+					<th class="col-md-4">Postal Code:</th>
+					<td class="col-md-8" th:text="${supplier.postalCode}"></td>
+				</tr>
+				<tr>
+					<th class="col-md-4">Country:</th>
+					<td class="col-md-8" th:text="${supplier.country}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+</html>

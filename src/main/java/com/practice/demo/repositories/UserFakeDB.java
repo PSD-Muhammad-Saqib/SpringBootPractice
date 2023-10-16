@@ -2,6 +2,7 @@ package com.practice.demo.repositories;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.practice.demo.models.User;
 
@@ -31,6 +32,6 @@ public class UserFakeDB {
 	
 	public static List<User> getUserWithCity(String city) {
 		return getUsers().stream()
-				.filter((u) -> (u.getCity().equals(city))).toList();
+				.filter((u) -> (u.getCity().equals(city))).collect(Collectors.toList());
 	}
 }

@@ -26,7 +26,7 @@ import com.practice.demo.models.Product;
 import com.practice.demo.services.ProductService;
 
 @RestController
-@RequestMapping("products")
+@RequestMapping("api/products")
 public class ProductController implements ControllerActionsInterface<Product> {
 
 	@Autowired

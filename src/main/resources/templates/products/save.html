@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+
+<head>
+	<title>Order Management | Products</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+
+<body>
+	<div th:replace="fragments/navbar-fragment" th:with="activePage='products'"></div>
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-md-6">
+				<h2 th:text="${product.id} ? 'Edit Product' : 'Add new Product'"></h2>
+			</div>
+			<div class="col-md-6 text-right p4">
+				<br>
+				<p><a href="/products" class="btn btn-dark btn-sm">Back</a></p>
+			</div>
+		</div>
+		<form class="col-6" method="post" th:object="${product}" action="#" th:action="@{/products/save}"
+			enctype="application/x-www-form-urlencoded">
+			<div class="form-group" th:if="${product.id}">
+				<label for="id">Product Code:</label>
+				<input type="number" th:field="*{id}" class="form-control" id="id" readonly required>
+			</div>
+
+			<div class="form-group">
+				<label for="supplierName">Product Name:</label>
+				<input type="text" th:field="*{productName}" class="form-control" id="supplierName"
+					placeholder="Enter a Supplier Name" required>
+			</div>
+
+			<div class="form-group">
+				<label for="price">Price:</label>
+				<input type="number" th:field="*{price}" class="form-control" id="price"
+					placeholder="Enter Price" required step="0.01">
+			</div>
+
+			<div class="form-group">
+				<label for="price">Category:</label>
+				<select th:field="*{category}" class="form-control" id="dropDownList" required>
+					<option value="">Select Category</option>
+					<option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.categoryName}"></option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="price">Supplier:</label>
+				<select th:field="*{supplier}" class="form-control" id="dropDownList" required>
+					<option value="">Select Supplier</option>
+					<option th:each="s : ${suppliers}" th:value="${s.id}" th:text="${s.supplierName}"></option>
+				</select>
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+		<footer>
+			<div th:replace="fragments/footer-fragment"></div>
+		</footer>
+	</div>
+</body>
+
+</html>
