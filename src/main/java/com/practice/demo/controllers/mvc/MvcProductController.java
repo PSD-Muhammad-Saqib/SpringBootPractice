@@ -1,12 +1,15 @@
 package com.practice.demo.controllers.mvc;
 
 import com.practice.demo.dtos.ProductDTO;
+import com.practice.demo.dtos.ProductOnlyDTO;
 import com.practice.demo.helpers.ProductMVCPaths;
 import com.practice.demo.helpers.ResponseHelpers;
 import com.practice.demo.helpers.SupplierMVCPaths;
 import com.practice.demo.interfaces.ControllerActionsInterface;
 import com.practice.demo.models.Product;
 import com.practice.demo.models.Supplier;
+import com.practice.demo.publisher.RabbitMQJsonProducer;
+import com.practice.demo.publisher.RabbitMQProducer;
 import com.practice.demo.services.CategoryService;
 import com.practice.demo.services.ProductService;
 import com.practice.demo.services.SupplierService;
@@ -40,6 +43,12 @@ public class MvcProductController {
 	@Autowired
 	private ModelMapper modelMapper;
 
+	@Autowired
+	private RabbitMQProducer rabbitMQProducer;
+
+	@Autowired
+	private RabbitMQJsonProducer rabbitMQJsonProducer;
+
 	@GetMapping("add")
 	public String add(Model model) {
 		model.addAttribute("product", new Product());
@@ -72,6 +81,9 @@ public class MvcProductController {
 				model.addAttribute("error", "Errors");
 				return ProductMVCPaths.redirect();
 			} else {
+				rabbitMQProducer.sendMessage(String.format("Product Code: %d is Created", saved.getId()));
+				ProductOnlyDTO dto = modelMapper.map(saved, ProductOnlyDTO.class);
+//				rabbitMQJsonProducer.sendJsonMessage(dto);
 				model.addAttribute("saved", true);
 				return ProductMVCPaths.redirect(saved.getId());
 			}
@@ -80,6 +92,10 @@ public class MvcProductController {
 
 			if (Objects.isNull(updated)) {
 				model.addAttribute("error", "Errors");
+			} else {
+				rabbitMQProducer.sendMessage(String.format("Product Code: %d is Updated", updated.getId()));
+				ProductOnlyDTO dto = modelMapper.map(updated, ProductOnlyDTO.class);
+//				rabbitMQJsonProducer.sendJsonMessage(dto);
 			}
 			return ProductMVCPaths.redirect(updated.getId());
 		}
