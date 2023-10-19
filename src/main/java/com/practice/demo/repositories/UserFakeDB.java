@@ -10,9 +10,9 @@ public class UserFakeDB {
 
 	public static List<User> getUsers(){
 		return Arrays.asList(
-				new User(1, "Muhammad", "Saqib", "Gujrat"),
-				new User(2, "Saif", "ur Rehman", "Gujrat"),
-				new User(3, "Saira", "Saad", "Gujranwala")
+//				new User(1, "Muhammad", "Saqib", "Gujrat"),
+//				new User(2, "Saif", "ur Rehman", "Gujrat"),
+//				new User(3, "Saira", "Saad", "Gujranwala")
 			);
 	}
 	
@@ -29,9 +29,5 @@ public class UserFakeDB {
 				.findFirst()
 	            .orElse(null);
 	}
-	
-	public static List<User> getUserWithCity(String city) {
-		return getUsers().stream()
-				.filter((u) -> (u.getCity().equals(city))).collect(Collectors.toList());
-	}
+
 }

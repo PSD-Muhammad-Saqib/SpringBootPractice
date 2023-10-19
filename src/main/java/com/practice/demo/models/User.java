@@ -7,38 +7,37 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "users")
 public class User {
 
+	@Getter
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String name;
-	private int age;
-	private Date dob;
 	private String email;
 	private String username;
 	private String password;
-	private String city;
+
+	@Getter
+	@Setter
+	private String userRole;
 	
 	public User() {
 		
 	}
 
-	public User(Integer id, String username, String password, String city) {
-		this.id = id;
+	public User(String name, String email, String username, String password, String userRole) {
+		this.name = name;
+		this.email = email;
 		this.username = username;
 		this.password = password;
-		this.city = city;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", age=" + age + ", dob=" + dob + ", email=" + email
-				+ ", username=" + username + ", password=" + password + ", city=" + city + "]";
+		this.userRole = userRole;
 	}
 
 	public String getName() {
@@ -47,22 +46,6 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
-
-	public Date getDob() {
-		return dob;
-	}
-
-	public void setDob(Date dob) {
-		this.dob = dob;
 	}
 
 	public String getEmail() {
@@ -89,19 +72,7 @@ public class User {
 		this.password = password;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
 	}
 }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.practice.demo.models.User;
 import com.practice.demo.repositories.UserFakeDB;
-import com.practice.demo.services.UserService;
+import com.practice.demo.auth.UserService;
 
 @RestController()
 @RequestMapping("users")
@@ -30,8 +30,7 @@ public class UserController {
 	
 	@GetMapping(value = "/home", produces = "application/json")
 	public ResponseEntity<List<User>> getUserHome(@RequestParam(name = "city", defaultValue = "") Optional<String> city) {
-		return city.get().equals("") ? ResponseEntity.ok(UserFakeDB.getUsers())
-				: ResponseEntity.ok(UserFakeDB.getUserWithCity(city.get()));
+		return ResponseEntity.ok(UserFakeDB.getUsers());
 	}
 
 	@PostMapping(value = "/add")
